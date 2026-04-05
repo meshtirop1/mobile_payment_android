@@ -10,6 +10,7 @@ let db = null;
 class Database {
   constructor(sqliteDb) {
     this._db = sqliteDb;
+    this._inTransaction = false;
   }
 
   // Save to disk
@@ -54,7 +55,6 @@ class Database {
       // Run (INSERT/UPDATE/DELETE)
       run(...params) {
         self._db.run(sql, params);
-        // Must get rowid BEFORE save() because export() resets it
         const ridStmt = self._db.prepare("SELECT last_insert_rowid()");
         let lastId = 0;
         if (ridStmt.step()) {
@@ -62,7 +62,10 @@ class Database {
         }
         ridStmt.free();
         const changes = self._db.getRowsModified();
-        self.save();
+        // Only save to disk if not inside a transaction
+        if (!self._inTransaction) {
+          self.save();
+        }
         return {
           lastInsertRowid: lastId,
           changes: changes
@@ -75,14 +78,17 @@ class Database {
   transaction(fn) {
     const self = this;
     return function (...args) {
+      self._inTransaction = true;
       self._db.run('BEGIN TRANSACTION');
       try {
         const result = fn(...args);
         self._db.run('COMMIT');
+        self._inTransaction = false;
         self.save();
         return result;
       } catch (e) {
         self._db.run('ROLLBACK');
+        self._inTransaction = false;
         throw e;
       }
     };

@@ -57,10 +57,15 @@ router.post('/simulate-entry', authenticateToken, (req, res) => {
   }
 
   // 3. Process payment based on method
-  if (method === 'crypto') {
-    handleCryptoPayment(req, res, db, vehicle, normalized);
-  } else {
-    handleWalletPayment(req, res, db, vehicle, normalized);
+  try {
+    if (method === 'crypto') {
+      handleCryptoPayment(req, res, db, vehicle, normalized);
+    } else {
+      handleWalletPayment(req, res, db, vehicle, normalized);
+    }
+  } catch (err) {
+    console.error('Payment error:', err);
+    res.status(500).json({ error: 'Payment processing failed: ' + err.message, gate: 'closed' });
   }
 });
 
