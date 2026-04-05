@@ -96,8 +96,9 @@ public class RegisterActivity extends AppCompatActivity {
                     ApiResponses.AuthResponse authResponse = response.body();
                     ApiClient.saveSession(RegisterActivity.this,
                             authResponse.token,
-                            authResponse.user.getName(),
-                            authResponse.user.getEmail());
+                            authResponse.user != null ? authResponse.user.getName() : "",
+                            authResponse.user != null ? authResponse.user.getEmail() : "",
+                            authResponse.isAdmin);
 
                     Toast.makeText(RegisterActivity.this, "Registration successful!", Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(RegisterActivity.this, MainActivity.class);

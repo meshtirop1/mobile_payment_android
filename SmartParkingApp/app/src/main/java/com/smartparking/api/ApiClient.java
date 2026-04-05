@@ -16,8 +16,8 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class ApiClient {
 
     // For physical device: use your computer's IP address (same Wi-Fi network)
-    // For emulator: use "http://10.0.2.2:3000/"
-    private static final String BASE_URL = "http://10.240.216.34:3000/";
+    // For emulator: use "http://10.0.2.2:8000/" (Django backend)
+    private static final String BASE_URL = "http://10.70.87.34:8000/";
     private static Retrofit retrofit = null;
     private static String authToken = null;
 
@@ -25,6 +25,7 @@ public class ApiClient {
     private static final String KEY_TOKEN = "auth_token";
     private static final String KEY_USER_NAME = "user_name";
     private static final String KEY_USER_EMAIL = "user_email";
+    private static final String KEY_IS_ADMIN = "is_admin";
 
     public static ApiService getApiService() {
         if (retrofit == null) {
@@ -66,6 +67,10 @@ public class ApiClient {
     }
 
     public static void saveSession(Context context, String token, String name, String email) {
+        saveSession(context, token, name, email, false);
+    }
+
+    public static void saveSession(Context context, String token, String name, String email, boolean isAdmin) {
         authToken = token;
         retrofit = null;
         SharedPreferences prefs = context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
@@ -73,6 +78,7 @@ public class ApiClient {
                 .putString(KEY_TOKEN, token)
                 .putString(KEY_USER_NAME, name)
                 .putString(KEY_USER_EMAIL, email)
+                .putBoolean(KEY_IS_ADMIN, isAdmin)
                 .apply();
     }
 
@@ -95,6 +101,11 @@ public class ApiClient {
     public static String getSavedUserEmail(Context context) {
         SharedPreferences prefs = context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
         return prefs.getString(KEY_USER_EMAIL, "");
+    }
+
+    public static boolean isAdmin(Context context) {
+        SharedPreferences prefs = context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
+        return prefs.getBoolean(KEY_IS_ADMIN, false);
     }
 
     public static void clearSession(Context context) {

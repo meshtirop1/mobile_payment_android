@@ -4,6 +4,14 @@ package-lock.json
 
 # Database
 *.db
+*.sqlite3
+
+# Django
+django_backend/venv/
+django_backend/__pycache__/
+django_backend/*/__pycache__/
+django_backend/*/*/__pycache__/
+*.pyc
 
 # Blockchain artifacts
 blockchain/artifacts/

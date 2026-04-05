@@ -28,6 +28,11 @@
         <activity android:name=".activities.TopUpActivity" />
         <activity android:name=".activities.ParkingSimulationActivity" />
         <activity android:name=".activities.HistoryActivity" />
+        <activity android:name=".activities.ParkingSpotsActivity" />
+        <activity android:name=".activities.ParkingExitActivity" />
+        <activity android:name=".activities.ReservationsActivity" />
+        <activity android:name=".activities.NotificationsActivity" />
+        <activity android:name=".activities.AdminDashboardActivity" />
     </application>
 
 </manifest>

@@ -81,8 +81,9 @@ public class LoginActivity extends AppCompatActivity {
                     ApiResponses.AuthResponse authResponse = response.body();
                     ApiClient.saveSession(LoginActivity.this,
                             authResponse.token,
-                            authResponse.user.getName(),
-                            authResponse.user.getEmail());
+                            authResponse.user != null ? authResponse.user.getName() : "",
+                            authResponse.user != null ? authResponse.user.getEmail() : "",
+                            authResponse.isAdmin);
 
                     Toast.makeText(LoginActivity.this, "Login successful!", Toast.LENGTH_SHORT).show();
                     startActivity(new Intent(LoginActivity.this, MainActivity.class));

@@ -39,6 +39,8 @@ public class ParkingSimulationActivity extends AppCompatActivity {
     private TextView tvGateStatus, tvResultMessage, tvResultDetails;
     private ProgressBar progressBar;
 
+    private int preselectedSpotNumber = -1;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -63,6 +65,10 @@ public class ParkingSimulationActivity extends AppCompatActivity {
 
         cardResult.setVisibility(View.GONE);
         rbWallet.setChecked(true);
+
+        // Check if a spot was pre-selected from ParkingSpotsActivity
+        preselectedSpotNumber = getIntent().getIntExtra(
+                ParkingSpotsActivity.EXTRA_SPOT_NUMBER, -1);
 
         btnSimulateEntry.setOnClickListener(v -> simulateEntry());
     }
@@ -89,6 +95,9 @@ public class ParkingSimulationActivity extends AppCompatActivity {
         Map<String, String> body = new HashMap<>();
         body.put("plate_number", plate);
         body.put("payment_method", paymentMethod);
+        if (preselectedSpotNumber > 0) {
+            body.put("spot_number", String.valueOf(preselectedSpotNumber));
+        }
 
         ApiService api = ApiClient.getApiService();
         api.simulateEntry(body).enqueue(new Callback<ApiResponses.SimulateEntryResponse>() {

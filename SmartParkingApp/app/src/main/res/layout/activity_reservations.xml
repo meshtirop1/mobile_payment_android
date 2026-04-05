@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#F5F5F5">
+
+    <!-- Create Reservation Card -->
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        app:cardCornerRadius="12dp"
+        app:cardElevation="3dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="New Reservation"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:layout_marginBottom="12dp" />
+
+            <EditText
+                android:id="@+id/etSpotNumber"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Spot Number (1-20)"
+                android:inputType="number"
+                android:importantForAutofill="no"
+                android:padding="12dp"
+                android:background="@drawable/edit_text_bg"
+                android:layout_marginBottom="8dp" />
+
+            <EditText
+                android:id="@+id/etPlateNumber"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Plate Number"
+                android:inputType="textCapCharacters"
+                android:importantForAutofill="no"
+                android:padding="12dp"
+                android:background="@drawable/edit_text_bg"
+                android:layout_marginBottom="8dp" />
+
+            <EditText
+                android:id="@+id/etReservedFrom"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="From (YYYY-MM-DD HH:MM)"
+                android:inputType="text"
+                android:importantForAutofill="no"
+                android:padding="12dp"
+                android:background="@drawable/edit_text_bg"
+                android:layout_marginBottom="8dp" />
+
+            <EditText
+                android:id="@+id/etReservedUntil"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Until (YYYY-MM-DD HH:MM)"
+                android:inputType="text"
+                android:importantForAutofill="no"
+                android:padding="12dp"
+                android:background="@drawable/edit_text_bg"
+                android:layout_marginBottom="12dp" />
+
+            <Button
+                android:id="@+id/btnCreate"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:text="Create Reservation"
+                android:textAllCaps="false"
+                android:backgroundTint="@color/primary" />
+
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:visibility="gone" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="My Reservations"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginBottom="8dp" />
+
+    <ListView
+        android:id="@+id/listReservations"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:divider="@android:color/transparent"
+        android:dividerHeight="8dp"
+        android:paddingHorizontal="16dp"
+        android:clipToPadding="false" />
+
+    <TextView
+        android:id="@+id/tvEmpty"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:text="No reservations yet"
+        android:textColor="@android:color/darker_gray"
+        android:visibility="gone" />
+
+</LinearLayout>
