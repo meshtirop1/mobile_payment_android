@@ -1,0 +1,31 @@
+# Node
+node_modules/
+package-lock.json
+
+# Database
+*.db
+
+# Blockchain artifacts
+blockchain/artifacts/
+blockchain/cache/
+backend/contract-address.json
+backend/contract-abi.json
+
+# Android
+SmartParkingApp/.gradle/
+SmartParkingApp/build/
+SmartParkingApp/app/build/
+SmartParkingApp/local.properties
+SmartParkingApp/.idea/
+SmartParkingApp/*.iml
+SmartParkingApp/app/*.iml
+
+# IDE
+.idea/
+
+# Local config
+.claude/
+
+# OS
+.DS_Store
+Thumbs.db
